@@ -169,6 +169,7 @@ export default function Home() {
         Export record in redcap
       </button>
       <PowerPointSlide data={powerpointdata} queryfacility={queryfacility} timepoint={querymonth} ></PowerPointSlide>
+      
    
     </div>
   )

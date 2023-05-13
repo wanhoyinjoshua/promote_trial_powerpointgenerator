@@ -6,8 +6,7 @@ export default function PowerPointSlide(props) {
 	console.log
 	
  if (props.data){
-	const [slideData, setSlideData] = useState({});
-	const [validdata,isData]=useState()
+
 		let barchartpatient1data=props?.data.allmonths_result
 		console.log(barchartpatient1data)
 		
