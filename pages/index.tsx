@@ -37,11 +37,7 @@ export default function Home() {
       'format': 'json',
       'type': 'flat',
       'csvDelimiter': '',
-      'records[0]': '1',
-      'records[1]': '2',
-      'records[2]': '3',
-      'records[3]': '4',
-      'records[4]': '5',
+    
       'fields[0]': 'record_id',
       'fields[1]': 'facility',
       'fields[2]': 'timepoint',
@@ -150,6 +146,7 @@ export default function Home() {
 
   return (
     <div>
+     
       
       Facility
       <select value={queryfacility} onChange={handlefacilityChange}>
