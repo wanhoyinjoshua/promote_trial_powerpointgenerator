@@ -162,6 +162,7 @@ export default function PowerPointSlide(props) {
  else{
 	return (
 		<div>
+			no data
 			
 		</div>
 	)

@@ -146,7 +146,7 @@ export default function Home() {
 
   return (
     <div>
-     
+     {loading?<div>loading</div>:null}
       
       Facility
       <select value={queryfacility} onChange={handlefacilityChange}>
