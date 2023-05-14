@@ -31,23 +31,19 @@ export default function Home() {
     };
 
     const pulldataparamdata = {
-      'token': '1CE8F273DDDF2AA7775F3554EE3AF214',
+      'token': '5C67A0F931B59191588935B7E7C57B70',
       'content': 'record',
       'action': 'export',
       'format': 'json',
       'type': 'flat',
       'csvDelimiter': '',
-    
       'fields[0]': 'record_id',
-      'fields[1]': 'facility',
-      'fields[2]': 'timepoint',
+      'fields[1]': 'timepoint',
+      'fields[2]': 'facility',
       'fields[3]': 'criteria_1',
       'fields[4]': 'criteria_2',
       'fields[5]': 'criteria_3',
-      'fields[6]': 'criteria_4',
-      'fields[7]': 'criteria_5',
-      'fields[8]': 'criteria_6',
-      'fields[9]': 'form_1_complete',
+      'fields[6]': 'form_1_complete',
       'rawOrLabel': 'raw',
       'rawOrLabelHeaders': 'raw',
       'exportCheckboxLabel': 'false',

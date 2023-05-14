@@ -4,8 +4,10 @@ import pptxgen from "pptxgenjs";
 
 export default function PowerPointSlide(props) {
 	console.log
+	const [powerpointloading,setpowerload]=useState()
 	
  if (props.data){
+		
 
 		let barchartpatient1data=props?.data.allmonths_result
 		console.log(barchartpatient1data)
@@ -53,7 +55,9 @@ export default function PowerPointSlide(props) {
 		  },
 		];
 		 const handleDownload = () => {
+			setpowerload(true)
 		  let pres = new pptxgen();
+		  
 		  let dataChartAreaLine = [
 			{
 			  name: "Actual Sales",
@@ -147,12 +151,13 @@ export default function PowerPointSlide(props) {
 	  
 		  slide.addChart(pres.ChartType.line, dataChartAreaLine, { x: 1, y: 1, w: 8, h: 4 });
 		 pres.writeFile({ fileName: `facility_${props.queryfacility}_time_${props.timepoint}` });
-		 
+		 setpowerload(false)
 		};
 	  
 
 	return (
 		<div>
+			{powerpointloading?<div>powerpointloading</div>:null}
 			{barchartpatient1data.length==0?<div>does not exist </div>: <button onClick={handleDownload}>Generate powerpoint for facility {props.facility} at timepoint {props.timepoint}</button>}
 		 
 		</div>
@@ -162,7 +167,7 @@ export default function PowerPointSlide(props) {
  else{
 	return (
 		<div>
-			no data
+			
 			
 		</div>
 	)
