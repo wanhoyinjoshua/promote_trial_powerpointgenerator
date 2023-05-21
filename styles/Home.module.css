@@ -1,5 +1,20 @@
 .container {
-  padding: 0 2rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 5%;
+}
+.facilityrow:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.facilityrow:nth-child(odd) {
+  background-color: white;
+}
+.item{
+  flex: 1;
+  width: 50%;
 }
 
 .main {
