@@ -7,31 +7,64 @@ export default function PowerPointSlide(props) {
 	const [powerpointloading,setpowerload]=useState()
 	
  if (props.data){
+		console.log(props.data)
 		
 
 		let barchartpatient1data=props?.data.allmonths_result
+		let alldata= props?.data.all
+		let current=props?.data.current
+		console.log("presentationdata")
+		console.log(current)
+		let time =props?.data.time
 		console.log(barchartpatient1data)
 		
 		//i need it in the form of two objects with the value field name , names and labels
-		function convertbarchartdata(barchartpatient1data){
-		  var a= barchartpatient1data.map((monthdata)=>{
-			  return monthdata[0]*100
-		  })
-		  var b = barchartpatient1data.map((monthdata)=>{
-			  return monthdata[1]*100
-		  })
+		function convertbarchartdata_first(patient1,patient2){
+		  
 		  const firstpatient=	{
 			  name: "patient 1",
-			  labels: ["1", "2", "3", "4","5","6","7","8","9","10"],
-			  values: a
-		  }
-		  const secondpatient=	{
-			  name: "patient 2",
-			  labels: ["1", "2", "3", "4","5","6","7","8","9","10"],
-			  values: b
-		  }
-		  const master=[firstpatient,secondpatient]
+			  labels: ["patient 1","patioent2"],
+			  values: [patient1,patient2]
+		  }	
+		 
+		  const master=[firstpatient]
 	  return master
+		}
+		function convertbarchartdata_second(){
+		  
+			const patient1=	{
+				name: "patient1",
+				labels: ["assessment","goalsetting","education","therapy","selfpractice","amount"],
+				values: [current.sub_assessment[0],current.sub_goal_setting[0],current.sub_education[0],current.sub_therapy[0],current.self_practice[0],current.sub_amount[0]]
+			}	
+			const patient2=	{
+				name: "patient1",
+				labels: ["assessment","goalsetting","education","therapy","selfpractice","amount"],
+				values: [current.sub_assessment[1],current.sub_goal_setting[1],current.sub_education[1],current.sub_therapy[1],current.self_practice[1],current.sub_amount[1]]
+			}	
+			
+		   
+			const master=[patient1,patient2]
+		return master
+		  }
+
+		function convertbarchartdata_third(){
+			console.log("shit")
+			console.log(alldata)
+			const dataarray=alldata.map((data)=>{ return data.total[0]/2+data.total[1]/2})
+			
+			
+			const patient1=	{
+				name: "patient1",
+				labels: ["timepoint 1","timepoint 2","timepoint3","timepoint4","timepoint5","timepoint6","timepoint7","timepoint8"],
+				values: dataarray
+			}	
+			
+			
+		   
+			const master=[patient1]
+		return master
+
 		}
 		 const COLOR_RED = "FF0000";
 		 const COLOR_YLW = "F2AF00";
@@ -40,85 +73,49 @@ export default function PowerPointSlide(props) {
 		 const COLOR_COMP = "4472C4";
 		 const COLOR_CANC = "672C7E";
 		 const COLORS_RYGU = [COLOR_RED, COLOR_YLW];
-		 const dataChartPieStat = [
-		  {
-			name: "first patient percentage completion",
-			labels: ["Red", "Yellow"],
-			values: [props.data.currentmonth_results[0]*100, 100-[props.data.currentmonth_results[0]*100]],
-		  },
-		];
-		const dataChartPieStat_patient2 = [
-		  {
-			name: "second patient percentage completion",
-			labels: ["Blue", "Yellow"],
-			values: [props.data.currentmonth_results[1]*100, 100-[props.data.currentmonth_results[1]*100]],
-		  },
-		];
+		 const EVSALES_LBLS = ["2010", "2011", "2012", "2013", "2014", "2015"];
+		 
+		const first_barchart=[]
 		 const handleDownload = () => {
 			setpowerload(true)
 		  let pres = new pptxgen();
 		  
-		  let dataChartAreaLine = [
-			{
-			  name: "Actual Sales",
-			  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-			  values: [1500, 4600, 5156, 3167, 8510, 8009, 6006, 7855, 12102, 12789, 10123, 15121],
-			},
-			{
-			  name: "Projected Sales",
-			  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-			  values: [1000, 2600, 3456, 4567, 5010, 6009, 7006, 8855, 9102, 10789, 11123, 12121],
-			},
-		  ];
+		  pres.defineSlideMaster({
+			title: "MASTER_SLIDE",
+			background: { color: "FFFFFF" },
+			objects: [
+			 { line: { x: 3.5, y: 1.0, w: 6.0, line: { color: "0088CC", width: 5 } } },
+			 { rect: { x: 0.0, y: 5.3, w: "100%", h: 0.75, fill: { color: "F1F1F1" } } },
+			 { text: { text: "Status Report", options: { x: 3.0, y: 5.3, w: 5.5, h: 0.75 } } },
+			 { image: { x: 11.3, y: 6.4, w: 1.67, h: 0.75, path: "images/logo.png" } },
+			],
+			slideNumber: { x: 0.3, y: "90%" },
+		   });
+		  
+		 
 	  
 		 
 	   var  slide=pres.addSlide()
 		var slide2=pres.addSlide()
 		var slide3 =pres.addSlide()
-		slide2.addChart(pres.charts.PIE, dataChartPieStat, {
-			  x: 0.5,
-			  y: 0.6,
-			  w: 6.0,
-			  h: 6.0,
-		  title:"hi",
-			  chartArea: { fill: { color: "F1F1F1" } },
-			  chartColors: COLORS_RYGU,
-			  dataBorder: { pt: 2, color: "F1F1F1" },
-			  //
-			  legendPos: "l",
-			  legendFontFace: "Courier New",
-			  showLegend: true,
-		  showTitle:true,
-			  //
-			  showLeaderLines: true,
-			  showPercent: false,
-			  showValue: true,
-			  dataLabelColor: "FFFFFF",
-			  dataLabelFontSize: 14,
-			  dataLabelPosition: "bestFit", // 'bestFit' | 'outEnd' | 'inEnd' | 'ctr'
-		  });
-		slide2.addChart(pres.charts.PIE, dataChartPieStat_patient2, {
-			  x: 6.83,
-			  y: '100%',
-			  w: 4.0,
-			  h: 4,
-		  title:"hi",
-			  chartArea: { fill: { color: "F1F1F1" } },
-			  chartColors: COLORS_RYGU,
-			  dataBorder: { pt: 2, color: "F1F1F1" },
-			  //
-			  legendPos: "l",
-			  legendFontFace: "Courier New",
-			  showLegend: true,
-		  showTitle:true,
-			  //
-			  showLeaderLines: true,
-			  showPercent: false,
-			  showValue: true,
-			  dataLabelColor: "FFFFFF",
-			  dataLabelFontSize: 14,
-			  dataLabelPosition: "bestFit", // 'bestFit' | 'outEnd' | 'inEnd' | 'ctr'
-		  });
+		var slide4=pres.addSlide()
+		var slide5=pres.addSlide()
+		var slide6=pres.addSlide()
+		var recommendslide1=pres.addSlide()
+		var recommendslide2=pres.addSlide()
+		var recommendslide3=pres.addSlide()
+		var recommendslide4=pres.addSlide()
+		var recommendslide5=pres.addSlide()
+		var recommendslide6=pres.addSlide()
+		var recommendslide7=pres.addSlide()
+		var recommendslide8=pres.addSlide()
+		var recommendslide9=pres.addSlide()
+		var recommendslide10=pres.addSlide()
+		
+
+
+
+		
 		let optsChartBar2 = {
 			  x: 1, y: 1, w: 8, h: 4,
 			  barDir: "col",
@@ -144,13 +141,231 @@ export default function PowerPointSlide(props) {
 			  legendPos: "b",
 			  showTitle: true,
 		  };
-		let arrDataRegions = convertbarchartdata(barchartpatient1data)
-		  slide3.addChart(pres.charts.BAR, arrDataRegions, optsChartBar2);
+		let arrDataRegions = convertbarchartdata_first(current.total[0],current.total[1])
+		let chart2data=convertbarchartdata_second()
+		let chartdata3=convertbarchartdata_third()
+		const barchart2=slide2.addChart(pres.charts.BAR, chart2data, optsChartBar2);
+		const firstgraph_props={
+			x: 0, y: 0, w: "100%", h: "100%",
+			
+			chartArea: { fill: { color: "F1F1F1" } },
+			barDir: "col",
+			
+			//
+			catAxisLabelColor: "494949",
+			catAxisLabelFontFace: "Arial",
+			catAxisLabelFontSize: 10,
+			catAxisOrientation: "minMax",
+			//
+			showLegend: true,
+			legendPos: "b",
+			//
+			showTitle: true,
+			titleFontFace: "Calibri Light",
+			titleFontSize: 14,
+			title: "Patient 1 n indicators , patient 2 n indicators",
+			//
+			valAxes: [
+				{
+					showValAxisTitle: true,
+					valAxisTitle: "Cars Produced (m)",
+					valAxisMaxVal: 10,
+					valAxisTitleColor: "1982c4",
+					valAxisLabelColor: "1982c4",
+				},
+				{
+					showValAxisTitle: true,
+					valAxisTitle: "Global Market Share (%)",
+					valAxisMaxVal: 10,
+					valAxisTitleColor: "F38940",
+					valAxisLabelColor: "F38940",
+					valGridLine: { style: "none" },
+				},
+			],
+			//
+			catAxes: [{ catAxisTitle: "Year" }, { catAxisHidden: true }],
+		}
+		const firstgraph_types=[
+			{
+				type: pres.charts.BAR,
+				data: arrDataRegions
+				
+			},
+			{
+				type: pres.charts.LINE,
+				data: [
+					{
+						name: "",
+						labels: ["ji","ji"],
+						values: [1, 1],
+					},
+				],
 		
-	  
-	  
-		  slide.addChart(pres.ChartType.line, dataChartAreaLine, { x: 1, y: 1, w: 8, h: 4 });
-		 pres.writeFile({ fileName: `facility_${props.queryfacility}_time_${props.timepoint}` });
+				options: { lineDash: "dash",chartColors: ["F38940"],lineDataSymbol: "none", secondaryValAxis: true, secondaryCatAxis: true },
+			},
+		];
+		
+		slide3.addChart(firstgraph_types, firstgraph_props);
+		slide.addImage({   path: "./png/Slide1.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		const textOptions = {
+			
+			x: "5%", // Adjust the horizontal position as needed
+			y: "40%", // Adjust the vertical position as needed
+			w: "90%", // Adjust the width as needed
+			h: "10%", // Adjust the height as needed
+			align: "center",
+			valign: "middle",
+			fontSize: 40,
+			bold:true,
+			wrap:true,
+			color:"035A87"
+		  };
+		slide.addText(`CLINICAL AUDIT RESULTS ${time}`,textOptions)
+		  
+
+		const comboProps = {
+			x: 0, y: 0, w: "100%", h: "100%",
+			
+			chartArea: { fill: { color: "F1F1F1" } },
+			barDir: "col",
+			
+			//
+			catAxisLabelColor: "494949",
+			catAxisLabelFontFace: "Arial",
+			catAxisLabelFontSize: 10,
+			catAxisOrientation: "minMax",
+			//
+			showLegend: true,
+			legendPos: "b",
+			
+			//
+			showTitle: true,
+			titleFontFace: "Calibri Light",
+			titleFontSize: 14,
+			title: "Team Adherence to Audit Criteria",
+			//
+			valAxes: [
+				{
+					showValAxisTitle: false,
+					valAxisTitle: "Cars Produced (m)",
+					valAxisMaxVal: 10,
+					valAxisTitleColor: "1982c4",
+					valAxisLabelColor: "1982c4",
+					valGridLine: { style: "none" },
+				},
+				{
+					showValAxisTitle: false,
+					valAxes:false,
+					showValue:false,
+					valAxisTitle: "Global Market Share (%)",
+					valAxisMaxVal: 10,
+					valAxisTitleColor: "F38940",
+					showLabel:false,
+					valAxisLabelColor: "F38940",
+					valGridLine: { style: "none" },
+				},
+			],
+			//
+			catAxes: [{ catAxisTitle: "Year" }, { catAxisHidden: true }],
+		};
+		
+		
+		const comboTypes = [
+			{
+				type: pres.charts.BAR,
+				data: chart2data
+				
+			},
+			{
+				type: pres.charts.LINE,
+				data: [
+					{
+						name: "",
+						labels: EVSALES_LBLS,
+						values: [1, 1, 1, 1, 1, 1],
+					},
+				],
+		
+				options: { lineDash: "dash",chartColors: ["F38940"],lineDataSymbol: "none", secondaryValAxis: true, secondaryCatAxis: true },
+			},
+		];
+
+		const overalladherence_props={
+			x: 0, y: 0, w: "100%", h: "100%",
+			
+			chartArea: { fill: { color: "F1F1F1" } },
+			barDir: "col",
+			
+			//
+			catAxisLabelColor: "494949",
+			catAxisLabelFontFace: "Arial",
+			catAxisLabelFontSize: 10,
+			catAxisOrientation: "minMax",
+			//
+			showLegend: true,
+			legendPos: "b",
+			//
+			showTitle: true,
+			titleFontFace: "Calibri Light",
+			titleFontSize: 14,
+			title: "Overall Adherence to Date",
+			//
+			valAxes: [
+				{
+					showValAxisTitle: true,
+					valAxisTitle: "Cars Produced (m)",
+					valAxisMaxVal: 10,
+					valAxisTitleColor: "1982c4",
+					valAxisLabelColor: "1982c4",
+				},
+				{
+					showValAxisTitle: true,
+					valAxisTitle: "Global Market Share (%)",
+					valAxisMaxVal: 10,
+					valAxisTitleColor: "F38940",
+					valAxisLabelColor: "F38940",
+					valGridLine: { style: "none" },
+				},
+			],
+			//
+			catAxes: [{ catAxisTitle: "Year" }, { catAxisHidden: true }],
+		}
+		const overalladherence_types=[
+			{
+				type: pres.charts.BAR,
+				data: chartdata3
+				
+			},
+			{
+				type: pres.charts.LINE,
+				data: [
+					{
+						name: "",
+						labels: EVSALES_LBLS,
+						values: [1, 1, 1, 1, 1, 1,1,1],
+					},
+				],
+		
+				options: { lineDash: "dash",chartColors: ["F38940"],lineDataSymbol: "none", secondaryValAxis: true, secondaryCatAxis: true },
+			},
+		];
+
+		slide4.addChart(comboTypes, comboProps);
+		slide5.addChart(overalladherence_types,overalladherence_props)
+		
+		slide6.addImage({   path: "./png/Slide5.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide1.addImage({   path: "./png/Slide6.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide2.addImage({   path: "./png/Slide7.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide3.addImage({   path: "./png/Slide8.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide4.addImage({   path: "./png/Slide9.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide5.addImage({   path: "./png/Slide10.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide6.addImage({   path: "./png/Slide11.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide7.addImage({   path: "./png/Slide12.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide8.addImage({   path: "./png/Slide13.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide9.addImage({   path: "./png/Slide14.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide10.addImage({   path: "./png/Slide15.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		
+		pres.writeFile({ fileName: `facility_${props.queryfacility}_time_${props.timepoint}` });
 		 setpowerload(false)
 		};
 	  
@@ -158,7 +373,7 @@ export default function PowerPointSlide(props) {
 	return (
 		<div>
 			{powerpointloading?<div>powerpointloading</div>:null}
-			{barchartpatient1data.length==0?<div>does not exist </div>: <button onClick={handleDownload}>Generate powerpoint for facility {props.facility} at timepoint {props.timepoint}</button>}
+			{alldata?.length==0?<div>does not exist </div>: <button onClick={handleDownload}>Generate powerpoint for facility {props.facility} at timepoint {props.timepoint}</button>}
 		 
 		</div>
 	  );

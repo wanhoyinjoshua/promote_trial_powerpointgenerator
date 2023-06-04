@@ -7,6 +7,8 @@ import PowerPointSlide from './ppt';
 import React from 'react';
 import { useState } from 'react';
 const Facilityrow = (props:any) => {
+
+  const [powerpointdata,setPowerpointdata]=useState<any>()
     
    
   async function handleClick() {
@@ -21,26 +23,121 @@ const Facilityrow = (props:any) => {
     
 
     const pulldataparamdata = {
-        'token': '4235A574AA340368BDF014F856AED8CF',
-        'content': 'record',
-        'action': 'export',
-        'format': 'json',
-        'type': 'flat',
-        'csvDelimiter': '',
-        'fields[0]': 'record_id',
-        'fields[1]': 'facility',
-        'fields[2]': 'timepoint',
-        'fields[3]': 'criteria_1',
-        'fields[4]': 'criteria_2',
-        'fields[5]': 'criteria_3',
-        'fields[6]': 'criteria_4',
-        'rawOrLabel': 'raw',
-        'rawOrLabelHeaders': 'raw',
-        'exportCheckboxLabel': 'false',
-        'exportSurveyFields': 'false',
-        'exportDataAccessGroups': 'false',
-        'returnFormat': 'json'
-    }
+      'token': 'D31D0593249F5F50DF7CB3A7903AE48D',
+      'content': 'record',
+      'action': 'export',
+      'format': 'json',
+      'type': 'flat',
+      'csvDelimiter': '',
+      'fields[0]': 'record_id',
+      'fields[1]': 'record_id_2e730d',
+      'fields[2]': 'audit_hospital',
+      'fields[3]': 'audit_number',
+      'fields[4]': 'audit_date',
+      'fields[5]': 'demographics',
+      'fields[6]': 'date_of_stroke',
+      'fields[7]': 'date_admission_rehab',
+      'fields[8]': 'reach_score',
+      'fields[9]': 'reach_score_2',
+      'fields[10]': 'reach_score_3',
+      'fields[11]': 'safe_shoulder',
+      'fields[12]': 'safe_finger',
+      'fields[13]': 'safe_score_total',
+      'fields[14]': 'ul_measure',
+      'fields[15]': 'ul_measure_na',
+      'fields[16]': 'name_outcome_measures',
+      'fields[17]': 'gs_ul',
+      'fields[18]': 'gs_ul_explanation',
+      'fields[19]': 'gs_ul_family',
+      'fields[20]': 'gs_ul_reviewed_explained_2',
+      'fields[21]': 'gs_ul_reviewed',
+      'fields[22]': 'gs_ul_reviewed_explained',
+      'fields[23]': 'ed_ul_prompts',
+      'fields[24]': 'ed_ul_na',
+      'fields[25]': 'ed_ul_self_practise',
+      'fields[26]': 'ul_educational_prompts_2',
+      'fields[27]': 'therapy_14_days',
+      'fields[28]': 'therapy_14_days_na',
+      'fields[29]': 'therapy_mental',
+      'fields[30]': 'mental_practise_na',
+      'fields[31]': 'therapy_es',
+      'fields[32]': 'therapy_es_na',
+      'fields[33]': 'therapy_mt',
+      'fields[34]': 'therapy_mt_na',
+      'fields[35]': 'therapy_bt',
+      'fields[36]': 'therapy_bt_na',
+      'fields[37]': 'therapy_cimt',
+      'fields[38]': 'explain_cimt_na',
+      'fields[39]': 'therapy_al_rtst',
+      'fields[40]': 'explain_cimt_na_2',
+      'fields[41]': 'therapy_al_strength',
+      'fields[42]': 'explain_cimt_na_3',
+      'fields[43]': 'therapy_il_splints',
+      'fields[44]': 'therapy_il_weakness',
+      'fields[45]': 'therapy_il_weakness_2',
+      'fields[46]': 'therapy_al_grasp',
+      'fields[47]': 'self_practise_na',
+      'fields[48]': 'amount_ul_therapy',
+      'fields[49]': 'amount_ul_therapy_na',
+      'fields[50]': 'amount_ul_therapy_2',
+      'fields[51]': 'amount_ul_therapy_na_2',
+      'fields[52]': 'demographics2',
+      'fields[53]': 'date_of_stroke2',
+      'fields[54]': 'date_admission_rehab2',
+      'fields[55]': 'reach_score2',
+      'fields[56]': 'reach_score2_2',
+      'fields[57]': 'reach_score2_3',
+      'fields[58]': 'safe_shoulder2',
+      'fields[59]': 'safe_finger2',
+      'fields[60]': 'safe_score_total2',
+      'fields[61]': 'ul_measure2',
+      'fields[62]': 'ul_measure_na2',
+      'fields[63]': 'name_outcome_measures2',
+      'fields[64]': 'gs_ul2',
+      'fields[65]': 'gs_ul2_explanation',
+      'fields[66]': 'gs_ul2_family',
+      'fields[67]': 'gs_ul2_reviewed_explained_2',
+      'fields[68]': 'gs_ul2_reviewed',
+      'fields[69]': 'gs_ul2_reviewed_explained',
+      'fields[70]': 'ed_ul2_prompts',
+      'fields[71]': 'ed_ul2_na',
+      'fields[72]': 'ed_ul2_self_practise',
+      'fields[73]': 'ul2_educational_prompts_2',
+      'fields[74]': 'therapy2_14_days',
+      'fields[75]': 'therapy2_14_days_na',
+      'fields[76]': 'therapy_mental2',
+      'fields[77]': 'mental_practise2_na',
+      'fields[78]': 'therapy2_es',
+      'fields[79]': 'therapy2_es_na',
+      'fields[80]': 'therapy2_mt',
+      'fields[81]': 'therapy2_mt_na',
+      'fields[82]': 'therapy2_bt',
+      'fields[83]': 'therapy2_bt_na',
+      'fields[84]': 'therapy2_cimt',
+      'fields[85]': 'explain2_cimt_na',
+      'fields[86]': 'therapy2_al_rtst',
+      'fields[87]': 'explain2_cimt_na_2',
+      'fields[88]': 'therapy2_al_strength',
+      'fields[89]': 'explain2_cimt_na_3',
+      'fields[90]': 'therapy2_il_splints',
+      'fields[91]': 'therapy2_il_weakness',
+      'fields[92]': 'therapy2_il_weakness_2',
+      'fields[93]': 'therapy2_al_grasp',
+      'fields[94]': 'self2_practise_na',
+      'fields[95]': 'amount2_ul_therapy',
+      'fields[96]': 'amount2_ul_therapy_na',
+      'fields[97]': 'amount2_ul_therapy_2',
+      'fields[98]': 'amount2_ul_therapy_na_2',
+      'fields[99]': 'discussion_ideas',
+      'fields[100]': 'fortnightly_clinical_audit_complete',
+      'rawOrLabel': 'raw',
+      'rawOrLabelHeaders': 'raw',
+      'exportCheckboxLabel': 'false',
+      'exportSurveyFields': 'false',
+      'exportDataAccessGroups': 'false',
+      'returnFormat': 'json',
+      'filterLogic': '[audit_hospital] ="1"'
+  }
     const options = {
       method: 'POST',
       body: new URLSearchParams(pulldataparamdata)
@@ -60,8 +157,64 @@ const Facilityrow = (props:any) => {
         setStatusCode("success from redcap")
 
       }
+      function calculate_subscore_and_total(timepointobject:any){
+        //this function assumes facility is already filtered 
+        // and it assumes it is an object 
+        for (let key of Object.keys(timepointobject)) {
+          timepointobject[key] = parseInt(timepointobject[key]);
+        }
+        let sub_assessment:any=timepointobject.ul_measure
+        let sub_goal_setting:any=timepointobject.gs_ul+timepointobject.gs_ul_family+timepointobject.gs_ul_reviewed
+        let sub_education=timepointobject.ed_ul_prompts+timepointobject.ed_ul_self_practise
+        let sub_therapy=timepointobject.therapy_14_days+timepointobject.therapy_mental+timepointobject.therapy_es+timepointobject.therapy_mt+timepointobject.therapy_bt+timepointobject.therapy_cimt+timepointobject.therapy_al_rtst+timepointobject.therapy_al_strength
+        let self_practice=timepointobject.therapy_al_grasp
+        let sub_amount =timepointobject.amount_ul_therapy+timepointobject.amount_ul_therapy_2
+        let total = (sub_assessment+sub_goal_setting+sub_education+sub_therapy+self_practice+sub_amount)/6
+        
+
+        let sub_assessment2:any=timepointobject.ul_measure2
+        let sub_goal_setting2:any=timepointobject.gs_ul2+timepointobject.gs_ul2_family+timepointobject.gs_ul2_reviewed
+        let sub_education2=timepointobject.ed_ul2_prompts+timepointobject.ed_ul2_self_practise
+        let sub_therapy2=timepointobject.therapy2_14_days+timepointobject.therapy_mental2+timepointobject.therapy2_es+timepointobject.therapy2_mt+timepointobject.therapy2_bt+timepointobject.therapy2_cimt+timepointobject.therapy2_al_rtst+timepointobject.therapy2_al_strength
+        let self_practice2=timepointobject.therapy2_al_grasp
+        let sub_amount2 =timepointobject.amount2_ul_therapy+timepointobject.amount2_ul_therapy_2
+        let total2 = (sub_assessment2+sub_goal_setting2+sub_education2+sub_therapy2+self_practice2+sub_amount2)/6
+        
+
+
+        return {
+          "sub_assessment":[sub_assessment,sub_assessment2],
+        "sub_goal_setting":[sub_goal_setting,sub_goal_setting2],
+        "sub_education":[sub_education,sub_education2],
+        "sub_therapy":[sub_therapy,sub_therapy2],
+        "self_practice":[self_practice,self_practice2],
+        "sub_amount":[sub_amount,sub_amount2],
+        "total":[total,total2]
+
+        } 
+
+        
+
+
+      }
       
-        var fieldNames = Object.keys(data2[0]);
+      //from here data 2 is a list of objects for a specific facility
+      // so i need to save target month and rest of the months 
+      //once i have the month need to pass into a function to get data, -->subscore and total score
+      //once i have that function i pass that function to every timepoint 
+      // and then i passs to ppt to present it.
+      var currenttimpointobject= data2.filter((obj:any) => obj.audit_number == "1" )[0]
+      //now pass currentimeobject to the function calculatesubscroe 
+      const graph_data_time=currenttimpointobject.audit_date
+      const current_graph_data= calculate_subscore_and_total(currenttimpointobject)
+      const alldata=data2.map((timepointobject:any)=>{return calculate_subscore_and_total(timepointobject)})
+      
+      //now need to pass current graph_data and all data to the powerpoint generation
+      const powerpointdata_new={"current":current_graph_data,"all":alldata,"time":graph_data_time}
+      console.log("powerpoint")
+      console.log(powerpointdata_new)
+      setPowerpointdata(powerpointdata_new)
+      var fieldNames = Object.keys(data2[0]);
       
       
       
@@ -84,7 +237,7 @@ const Facilityrow = (props:any) => {
       const datafinal = await res.json();
       
       //the data is finally here, and  i HAVE TO NOW PASS THIS TO POWERPOINT GENERARTION
-      setPowerpointdata(datafinal)
+     
       function patient1(list:any){
         return list.includes("___1")
 
@@ -123,7 +276,7 @@ const Facilityrow = (props:any) => {
     },
   ];
   const [statuscode,setStatusCode]=useState("")
-  const [powerpointdata,setPowerpointdata]=useState()
+  
   const [ queryfacility,setFacility]=useState("1")
   const [querymonth,setMonth]=useState("1")
   const [loading,setLoading]=useState(false)
