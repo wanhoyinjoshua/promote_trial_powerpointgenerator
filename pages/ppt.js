@@ -215,7 +215,7 @@ export default function PowerPointSlide(props) {
 		];
 		
 		slide3.addChart(firstgraph_types, firstgraph_props);
-		slide.addImage({   path: "./png/Slide1.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		slide.addImage({   path: "/png/Slide1.PNG", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
 		const textOptions = {
 			
 			x: "5%", // Adjust the horizontal position as needed
@@ -371,7 +371,7 @@ export default function PowerPointSlide(props) {
 		slide4.addChart(comboTypes, comboProps);
 		slide5.addChart(overalladherence_types,overalladherence_props)
 		
-		slide6.addImage({   path: "./png/Slide5.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		slide6.addImage({   path: "/png/Slide5.PNG", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
 		recommendslide1.addImage({   path: "/png/Slide6.PNG", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
 		recommendslide2.addImage({   path: "/png/Slide7.PNG", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
 		recommendslide3.addImage({   path: "/png/Slide8.PNG", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
