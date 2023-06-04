@@ -21,10 +21,10 @@ export default function Home() {
     setMonth(event.target.value);
   };
   const childButtonRefs = [
-    useRef<HTMLButtonElement>(null),
-    useRef<HTMLButtonElement>(null),
-    useRef<HTMLButtonElement>(null),
-    useRef<HTMLButtonElement>(null),
+    useRef<any>(null),
+    useRef<any>(null),
+    useRef<any>(null),
+    useRef<any>(null),
     
   ];
 
