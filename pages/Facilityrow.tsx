@@ -356,4 +356,6 @@ const Facilityrow = forwardRef((props:any, ref) => {
   )
 })
 
+Facilityrow.displayName = 'Facilityrow';
+
 export default Facilityrow
