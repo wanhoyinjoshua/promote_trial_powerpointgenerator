@@ -372,16 +372,16 @@ export default function PowerPointSlide(props) {
 		slide5.addChart(overalladherence_types,overalladherence_props)
 		
 		slide6.addImage({   path: "./png/Slide5.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide1.addImage({   path: "./png/Slide6.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide2.addImage({   path: "./png/Slide7.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide3.addImage({   path: "./png/Slide8.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide4.addImage({   path: "./png/Slide9.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide5.addImage({   path: "./png/Slide10.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide6.addImage({   path: "./png/Slide11.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide7.addImage({   path: "./png/Slide12.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide8.addImage({   path: "./png/Slide13.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide9.addImage({   path: "./png/Slide14.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
-		recommendslide10.addImage({   path: "./png/Slide15.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide1.addImage({   path: "/png/Slide6.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide2.addImage({   path: "/png/Slide7.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide3.addImage({   path: "/png/Slide8.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide4.addImage({   path: "/png/Slide9.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide5.addImage({   path: "/png/Slide10.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide6.addImage({   path: "/png/Slide11.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide7.addImage({   path: "/png/Slide12.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide8.addImage({   path: "/png/Slide13.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide9.addImage({   path: "/png/Slide14.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
+		recommendslide10.addImage({   path: "/png/Slide15.png", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
 		
 		pres.writeFile({ fileName: `facility_${props.queryfacility}_time_${props.timepoint}` });
 		 setpowerload(false)
