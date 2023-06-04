@@ -23,8 +23,8 @@ export default function PowerPointSlide(props) {
 		  
 		  const firstpatient=	{
 			  name: "patient 1",
-			  labels: ["patient 1","patioent2"],
-			  values: [patient1,patient2]
+			  labels: ["","patient 1","patioent2",""],
+			  values: [0,patient1,patient2,0]
 		  }	
 		 
 		  const master=[firstpatient]
@@ -34,13 +34,13 @@ export default function PowerPointSlide(props) {
 		  
 			const patient1=	{
 				name: "patient1",
-				labels: ["assessment","goalsetting","education","therapy","selfpractice","amount"],
-				values: [current.sub_assessment[0],current.sub_goal_setting[0],current.sub_education[0],current.sub_therapy[0],current.self_practice[0],current.sub_amount[0]]
+				labels: ["","assessment","goalsetting","education","therapy","selfpractice","amount",""],
+				values: [0,current.sub_assessment[0],current.sub_goal_setting[0],current.sub_education[0],current.sub_therapy[0],current.self_practice[0],current.sub_amount[0],0]
 			}	
 			const patient2=	{
 				name: "patient1",
-				labels: ["assessment","goalsetting","education","therapy","selfpractice","amount"],
-				values: [current.sub_assessment[1],current.sub_goal_setting[1],current.sub_education[1],current.sub_therapy[1],current.self_practice[1],current.sub_amount[1]]
+				labels: ["","assessment","goalsetting","education","therapy","selfpractice","amount",""],
+				values: [0,current.sub_assessment[1],current.sub_goal_setting[1],current.sub_education[1],current.sub_therapy[1],current.self_practice[1],current.sub_amount[1],0]
 			}	
 			
 		   
@@ -51,12 +51,15 @@ export default function PowerPointSlide(props) {
 		function convertbarchartdata_third(){
 			console.log("shit")
 			console.log(alldata)
-			const dataarray=alldata.map((data)=>{ return data.total[0]/2+data.total[1]/2})
+			var dataarray=alldata.map((data)=>{ return data.total[0]/2+data.total[1]/2})
 			
-			
+			dataarray.unshift(0);
+
+			// Add item to the end of the array
+			dataarray.push(0);
 			const patient1=	{
 				name: "patient1",
-				labels: ["timepoint 1","timepoint 2","timepoint3","timepoint4","timepoint5","timepoint6","timepoint7","timepoint8"],
+				labels: ["","timepoint 1","timepoint 2","timepoint3","timepoint4","timepoint5","timepoint6","timepoint7","timepoint8",""],
 				values: dataarray
 			}	
 			
@@ -96,7 +99,7 @@ export default function PowerPointSlide(props) {
 	  
 		 
 	   var  slide=pres.addSlide()
-		var slide2=pres.addSlide()
+		
 		var slide3 =pres.addSlide()
 		var slide4=pres.addSlide()
 		var slide5=pres.addSlide()
@@ -144,7 +147,7 @@ export default function PowerPointSlide(props) {
 		let arrDataRegions = convertbarchartdata_first(current.total[0],current.total[1])
 		let chart2data=convertbarchartdata_second()
 		let chartdata3=convertbarchartdata_third()
-		const barchart2=slide2.addChart(pres.charts.BAR, chart2data, optsChartBar2);
+		
 		const firstgraph_props={
 			x: 0, y: 0, w: "100%", h: "100%",
 			
@@ -162,21 +165,27 @@ export default function PowerPointSlide(props) {
 			//
 			showTitle: true,
 			titleFontFace: "Calibri Light",
-			titleFontSize: 14,
+			titleFontSize: 30,
 			title: "Patient 1 n indicators , patient 2 n indicators",
 			//
 			valAxes: [
 				{
 					showValAxisTitle: true,
-					valAxisTitle: "Cars Produced (m)",
-					valAxisMaxVal: 10,
+					valAxisTitle: "Percentages(%)",
+					valAxisMinVal:0,
+				
+					valAxisMaxVal: 100,
 					valAxisTitleColor: "1982c4",
 					valAxisLabelColor: "1982c4",
+					valGridLine: { style: "none" },
 				},
 				{
 					showValAxisTitle: true,
 					valAxisTitle: "Global Market Share (%)",
-					valAxisMaxVal: 10,
+					valAxisMaxVal: 100,
+					valAxisMinVal:0,
+					valAxisHidden:true,
+					
 					valAxisTitleColor: "F38940",
 					valAxisLabelColor: "F38940",
 					valGridLine: { style: "none" },
@@ -197,7 +206,7 @@ export default function PowerPointSlide(props) {
 					{
 						name: "",
 						labels: ["ji","ji"],
-						values: [1, 1],
+						values: [75,75,75,75],
 					},
 				],
 		
@@ -247,8 +256,9 @@ export default function PowerPointSlide(props) {
 			valAxes: [
 				{
 					showValAxisTitle: false,
-					valAxisTitle: "Cars Produced (m)",
-					valAxisMaxVal: 10,
+					valAxisTitle: "Percentages(%)",
+					valAxisMaxVal: 100,
+					valAxisMinVal:0,
 					valAxisTitleColor: "1982c4",
 					valAxisLabelColor: "1982c4",
 					valGridLine: { style: "none" },
@@ -257,8 +267,9 @@ export default function PowerPointSlide(props) {
 					showValAxisTitle: false,
 					valAxes:false,
 					showValue:false,
-					valAxisTitle: "Global Market Share (%)",
-					valAxisMaxVal: 10,
+					valAxisHidden:true,
+					valAxisTitle: "",
+					valAxisMaxVal: 100,
 					valAxisTitleColor: "F38940",
 					showLabel:false,
 					valAxisLabelColor: "F38940",
@@ -273,7 +284,10 @@ export default function PowerPointSlide(props) {
 		const comboTypes = [
 			{
 				type: pres.charts.BAR,
-				data: chart2data
+				data: chart2data,
+				options:{
+					
+				}
 				
 			},
 			{
@@ -282,11 +296,12 @@ export default function PowerPointSlide(props) {
 					{
 						name: "",
 						labels: EVSALES_LBLS,
-						values: [1, 1, 1, 1, 1, 1],
+						values: [75, 75, 75, 75, 75, 75,75,75],
+						
 					},
 				],
 		
-				options: { lineDash: "dash",chartColors: ["F38940"],lineDataSymbol: "none", secondaryValAxis: true, secondaryCatAxis: true },
+				options: { lineDash: "dash",chartColors: ["F38940"],lineDataSymbol: "none",displayBlanksAs:true,lineSize:5, secondaryValAxis: true, secondaryCatAxis: true },
 			},
 		];
 
@@ -313,15 +328,18 @@ export default function PowerPointSlide(props) {
 			valAxes: [
 				{
 					showValAxisTitle: true,
-					valAxisTitle: "Cars Produced (m)",
-					valAxisMaxVal: 10,
+					valAxisTitle: "Percentages(%)",
+					valAxisMaxVal: 100,
+					valAxisMinVal:0,
 					valAxisTitleColor: "1982c4",
 					valAxisLabelColor: "1982c4",
 				},
 				{
 					showValAxisTitle: true,
-					valAxisTitle: "Global Market Share (%)",
-					valAxisMaxVal: 10,
+					valAxisTitle: "",
+					valAxisMaxVal: 100,
+					valAxisMinVal:0,
+					valAxisHidden:true,
 					valAxisTitleColor: "F38940",
 					valAxisLabelColor: "F38940",
 					valGridLine: { style: "none" },
@@ -342,7 +360,7 @@ export default function PowerPointSlide(props) {
 					{
 						name: "",
 						labels: EVSALES_LBLS,
-						values: [1, 1, 1, 1, 1, 1,1,1],
+						values: [75, 75, 75, 75, 75, 75,75,75,75,75],
 					},
 				],
 		
@@ -373,7 +391,7 @@ export default function PowerPointSlide(props) {
 	return (
 		<div>
 			{powerpointloading?<div>powerpointloading</div>:null}
-			{alldata?.length==0?<div>does not exist </div>: <button onClick={handleDownload}>Generate powerpoint for facility {props.facility} at timepoint {props.timepoint}</button>}
+			{alldata?.length==0?<div>does not exist </div>: <button className="inline-block rounded bg-orange-600 px-4 py-2 text-xs font-medium text-white hover:bg-orange-700" onClick={handleDownload}>Generate powerpoint for facility {props.facility} at timepoint {props.timepoint}</button>}
 		 
 		</div>
 	  );
