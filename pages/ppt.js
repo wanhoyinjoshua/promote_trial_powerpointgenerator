@@ -59,7 +59,7 @@ export default function PowerPointSlide(props) {
 			dataarray.push(0);
 			const patient1=	{
 				name: "patient1",
-				labels: ["","timepoint 1","timepoint 2","timepoint3","timepoint4","timepoint5","timepoint6","timepoint7","timepoint8",""],
+				labels: ["","Audit 1","Audit 2","Audit 3","Audit 4","Audit 5","Audit 6","Audit 7","Audit 8","Audit 9","Audit 10","Audit 11","Audit 12","Audit 13",""],
 				values: dataarray
 			}	
 			
@@ -360,7 +360,7 @@ export default function PowerPointSlide(props) {
 					{
 						name: "",
 						labels: EVSALES_LBLS,
-						values: [75, 75, 75, 75, 75, 75,75,75,75,75],
+						values: [75, 75, 75, 75, 75, 75,75,75,75,75,75,75,75,75,75],
 					},
 				],
 		

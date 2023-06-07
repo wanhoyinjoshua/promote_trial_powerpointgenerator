@@ -169,6 +169,11 @@ const Facilityrow = forwardRef((props:any, ref) => {
         // and it assumes it is an object 
         for (let key of Object.keys(timepointobject)) {
           timepointobject[key] = parseInt(timepointobject[key]);
+          if(timepointobject[key]==66){
+            timepointobject[key]=0
+
+
+          }
         }
         let sub_assessment:any=(timepointobject.ul_measure/1)*100
         let sub_goal_setting:any=((timepointobject.gs_ul+timepointobject.gs_ul_family+timepointobject.gs_ul_reviewed)/3)*100

@@ -56,6 +56,15 @@ export default function Home() {
         <option value="2">Audit 2 </option>
         <option value="3">Audit 3 </option>
         <option value="4">Audit 4 </option>
+        <option value="5">Audit 5</option>
+        <option value="6">Audit 6 </option>
+        <option value="7">Audit 7 </option>
+        <option value="8">Audit 8 </option>
+        <option value="9">Audit 9 </option>
+        <option value="10">Audit 10</option>
+        <option value="11">Audit 11 </option>
+        <option value="12">Audit 12 </option>
+        <option value="13">Audit 13 </option>
       </select> 
        <section className=''>
      
