@@ -227,7 +227,11 @@ const Facilityrow = forwardRef((props:any, ref) => {
       // and then i passs to ppt to present it.
       console.log(data2)
       console.log(props.timepoint)
-      var currenttimpointobject= data2.filter((obj:any) => obj.audit_number == props.timepoint )[0]
+      var filterabloibject=data2.filter((obj:any) => obj.audit_number == props.timepoint )
+      var currenttimpointobject= filterabloibject[0]
+      function myFunction(element:any) {
+        return element.record_id
+      }
       //now pass currentimeobject to the function calculatesubscroe 
       console.log(currenttimpointobject)
       if (currenttimpointobject==undefined){
@@ -235,9 +239,13 @@ const Facilityrow = forwardRef((props:any, ref) => {
         setLoading(false)
         return
       }
-      else if (currenttimpointobject.length>1){
-        setStatusCode("this record at this timepoit for this facility has more than 1 record, for the results to be valid, only one record per timepoint per facility can exist")
-
+      else if (filterabloibject.length>1){
+        
+        var dupid=filterabloibject.map(myFunction)
+        setStatusCode(`this record at this timepoit for this facility has more than 1 record, for the results to be valid, only one record per timepoint per facility can exist--Duplicate record ids= ${JSON.stringify(dupid)}`)
+        console.log("hihiduplicate")
+        setLoading(false)
+        return
 
       }
       const graph_data_time=currenttimpointobject.audit_date
