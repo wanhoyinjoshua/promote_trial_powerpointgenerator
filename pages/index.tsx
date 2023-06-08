@@ -25,6 +25,9 @@ export default function Home() {
     useRef<any>(null),
     useRef<any>(null),
     useRef<any>(null),
+    useRef<any>(null),
+    useRef<any>(null),
+    useRef<any>(null)
     
   ];
 
@@ -96,6 +99,21 @@ export default function Home() {
       </div>
       <div className={styles.facilityrow}>
       <Facilityrow ref={childButtonRefs[3]} facility={"4"} timepoint={querymonth} ></Facilityrow>
+
+      </div>
+
+      <div className={styles.facilityrow}>
+      <Facilityrow ref={childButtonRefs[4]} facility={"5"} timepoint={querymonth} ></Facilityrow>
+
+      </div>
+    
+      <div className={styles.facilityrow}>
+      <Facilityrow ref={childButtonRefs[5]} facility={"6"} timepoint={querymonth} ></Facilityrow>
+
+      </div>
+
+      <div className={styles.facilityrow}>
+      <Facilityrow ref={childButtonRefs[6]} facility={"7"} timepoint={querymonth} ></Facilityrow>
 
       </div>
 

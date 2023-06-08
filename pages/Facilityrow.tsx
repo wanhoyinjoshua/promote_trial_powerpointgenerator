@@ -142,9 +142,10 @@ const Facilityrow = forwardRef((props:any, ref) => {
       'exportCheckboxLabel': 'false',
       'exportSurveyFields': 'false',
       'exportDataAccessGroups': 'false',
-      'returnFormat': 'json'
+      'returnFormat': 'json',
+      'filterLogic': `[audit_hospital] =${props.facility}`
   }
-  //,'filterLogic': `[audit_hospital] =${props.facility}`
+
     const options = {
       method: 'POST',
       body: new URLSearchParams(pulldataparamdata)
@@ -167,14 +168,22 @@ const Facilityrow = forwardRef((props:any, ref) => {
       function calculate_subscore_and_total(timepointobject:any){
         //this function assumes facility is already filtered 
         // and it assumes it is an object 
+        var newob=timepointobject
         for (let key of Object.keys(timepointobject)) {
-          timepointobject[key] = parseInt(timepointobject[key]);
-          if(timepointobject[key]==66){
-            timepointobject[key]=0
+          if(timepointobject[key]=="66"){
+            console.log(key)
+            console.log("beforennigga")
+            console.log(timepointobject)
+            newob[key]="1"
+            console.log(newob[key])
+            
 
 
           }
+          newob[key] = parseInt(newob[key]);
+          
         }
+        timepointobject=newob
         let sub_assessment:any=(timepointobject.ul_measure/1)*100
         let sub_goal_setting:any=((timepointobject.gs_ul+timepointobject.gs_ul_family+timepointobject.gs_ul_reviewed)/3)*100
         let sub_education=((timepointobject.ed_ul_prompts+timepointobject.ed_ul_self_practise)/2)*100
@@ -192,7 +201,7 @@ const Facilityrow = forwardRef((props:any, ref) => {
         let sub_amount2 =((timepointobject.amount2_ul_therapy+timepointobject.amount2_ul_therapy_2)/2)*100
         let total2 = (sub_assessment2+sub_goal_setting2+sub_education2+sub_therapy2+self_practice2+sub_amount2)/6
         
-
+        let auditno=timepointobject.audit_number
 
         return {
           "sub_assessment":[sub_assessment,sub_assessment2],
@@ -201,7 +210,8 @@ const Facilityrow = forwardRef((props:any, ref) => {
         "sub_therapy":[sub_therapy,sub_therapy2],
         "self_practice":[self_practice,self_practice2],
         "sub_amount":[sub_amount,sub_amount2],
-        "total":[total,total2]
+        "total":[total,total2],
+        "auditno":auditno,
 
         } 
 
@@ -215,8 +225,11 @@ const Facilityrow = forwardRef((props:any, ref) => {
       //once i have the month need to pass into a function to get data, -->subscore and total score
       //once i have that function i pass that function to every timepoint 
       // and then i passs to ppt to present it.
+      console.log(data2)
+      console.log(props.timepoint)
       var currenttimpointobject= data2.filter((obj:any) => obj.audit_number == props.timepoint )[0]
       //now pass currentimeobject to the function calculatesubscroe 
+      console.log(currenttimpointobject)
       if (currenttimpointobject==undefined){
         setStatusCode("this record at this timepoit for this facility does not exist")
         setLoading(false)

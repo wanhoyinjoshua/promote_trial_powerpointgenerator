@@ -12,8 +12,47 @@ export default function PowerPointSlide(props) {
 
 		let barchartpatient1data=props?.data.allmonths_result
 		let alldata= props?.data.all
+		// i need to transform all data:
+
 		let current=props?.data.current
 		console.log("presentationdata")
+		console.log("all data")
+		const ggg=[1,2,3,4,5,6,7,8,9,10,11,12,13]
+		var refinedalldata=[]
+		console.log(alldata)
+		for (let i = 0; i <= ggg.length-1; i++) {
+			console.log(alldata.length)
+			var present=false
+			alldata.forEach(element => {
+				if (ggg[i]==element.auditno){
+					refinedalldata.push(element)
+					present=true
+
+				}
+				
+
+				
+			});
+			if (present!=true){
+				refinedalldata.push({
+					"sub_assessment":0,
+        "sub_goal_setting":0,
+        "sub_education":0,
+        "sub_therapy":0,
+        "self_practice":0,
+        "sub_amount":0,
+        "total":[0,0],
+        "auditno":ggg[i],
+				})
+
+			}
+
+			
+		  }
+		alldata=refinedalldata
+		console.log("bitchass niigga")
+		console.log(alldata)
+		console.log(alldata)
 		console.log(current)
 		let time =props?.data.time
 		console.log(barchartpatient1data)
@@ -50,6 +89,7 @@ export default function PowerPointSlide(props) {
 
 		function convertbarchartdata_third(){
 			console.log("shit")
+			//so now the data is literally a list 
 			console.log(alldata)
 			var dataarray=alldata.map((data)=>{ return data.total[0]/2+data.total[1]/2})
 			
