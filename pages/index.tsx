@@ -49,6 +49,12 @@ export default function Home() {
         This tool automates the process of pulling data from redcap and generating a powerpoint presentation based on the data pulled.
         To use this tool, you need to first specifiy the timepoint - audit no of interest. You can then either click export data for all hospitals and there is any data , an orange button should be displayed to generate the ppt.
         Alternatively you can do it one by one.
+        <br>
+        </br>
+        Error messages:there is nothing from the database- meaning there is no record for all timepoints .<br></br>
+this record at this timepoint for this facility does not exist- there are records for that hospital but not at that timepoint,
+<br></br>
+this record at this timepoit for this facility has more than 1 record, for the results to be valid, only one record per timepoint per facility can exist- please delete the duplicate in redcap.
       </p>
     </div>
     <br></br>
