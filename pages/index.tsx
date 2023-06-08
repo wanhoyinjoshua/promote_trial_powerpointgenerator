@@ -42,7 +42,7 @@ export default function Home() {
 
   return (
     <div className="p-6" >
-      <div className="max-w-xl bg-gray-200">
+      <div className=" bg-gray-200">
       <h2 className="text-3xl font-bold sm:text-4xl">Promote trial Powerpoint Generator 2023 </h2>
 
       <p className="mt-4 ">
@@ -51,10 +51,13 @@ export default function Home() {
         Alternatively you can do it one by one.
         <br>
         </br>
-        Error messages:there is nothing from the database- meaning there is no record for all timepoints .<br></br>
-this record at this timepoint for this facility does not exist- there are records for that hospital but not at that timepoint,
+        Error messages:<br>
+        </br>
+  <strong>there is nothing from the database</strong>- meaning there is no record for all timepoints .<br></br>
+<strong>this record at this timepoint for this facility does not exist</strong>- there are records for that hospital but not at that timepoint,
 <br></br>
-this record at this timepoit for this facility has more than 1 record, for the results to be valid, only one record per timepoint per facility can exist- please delete the duplicate in redcap.
+<strong>
+this record at this timepoit for this facility has more than 1 record, for the results to be valid, only one record per timepoint per facility can exist</strong>- please delete the duplicate in redcap.
       </p>
     </div>
     <br></br>
