@@ -46,6 +46,9 @@ export default function Home() {
       <h2 className="text-3xl font-bold sm:text-4xl">Promote trial Powerpoint Generator 2023 </h2>
 
       <p className="mt-4 ">
+        Redcap public survey link:<br></br>
+        <a className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"href='https://redcap.helix.monash.edu/surveys/?s=XPT73AD9YMFKLNLN' target='_blank'>https://redcap.helix.monash.edu/surveys/?s=XPT73AD9YMFKLNLN</a><br>
+        </br>
         This tool automates the process of pulling data from redcap and generating a powerpoint presentation based on the data pulled.
         To use this tool, you need to first specifiy the timepoint - audit no of interest. You can then either click export data for all hospitals and there is any data , an orange button should be displayed to generate the ppt.
         Alternatively you can do it one by one.
