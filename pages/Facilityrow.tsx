@@ -354,7 +354,7 @@ const Facilityrow = forwardRef((props:any, ref) => {
             onClick={handleClick}
             className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
           >
-            Export Data from redcap
+            Export Data from REDCAP
           </button></td>
         <td className="whitespace-nowrap px-4 py-2 text-gray-700">
         {statuscode=="success"?<PowerPointSlide data={powerpointdata} queryfacility={props.facility} timepoint={props.timepoint} ></PowerPointSlide>:<div></div>}

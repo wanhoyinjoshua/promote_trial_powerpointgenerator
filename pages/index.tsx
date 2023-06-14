@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div className="p-6" >
       <div className=" bg-gray-200">
-      <h2 className="text-3xl font-bold sm:text-4xl">Promote trial Powerpoint Generator 2023 </h2>
+      <h2 className="text-3xl font-bold sm:text-4xl">PROMOTE Trial Powerpoint Generator 2023 </h2>
 
       <p className="mt-4 ">
         Redcap public survey link:<br></br>
@@ -60,7 +60,7 @@ export default function Home() {
 <strong>this record at this timepoint for this facility does not exist</strong>- there are records for that hospital but not at that timepoint,
 <br></br>
 <strong>
-this record at this timepoit for this facility has more than 1 record, for the results to be valid, only one record per timepoint per facility can exist</strong>- please delete the duplicate in redcap.
+this record at this timepoint for this facility has more than 1 record, for the results to be valid, only one record per timepoint per facility can exist</strong>- please delete the duplicate in redcap.
       </p>
     </div>
     <br></br>
