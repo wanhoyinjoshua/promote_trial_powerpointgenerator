@@ -86,7 +86,7 @@ export default function Home() {
 
   const RenderList=
     Object.entries(hospitallist_local).map(([key, value]) => (
-      <Facilityrow ref={childButtonRefs[Number(key)]} facility={Number(key)} facilityname={value} timepoint={querymonth} ></Facilityrow>
+      <Facilityrow key={key} ref={childButtonRefs[Number(key)]} facility={Number(key)} facilityname={value} timepoint={querymonth} ></Facilityrow>
 
     ));
 
@@ -159,7 +159,7 @@ this record at this timepoint for this facility has more than 1 record, for the 
         <div className="bg-white p-4 rounded-lg shadow-lg absolute inset-0 flex flex-col items-center justify-center">
   <h2 className="text-lg font-bold mb-2">Edit Hospital Names</h2>
   {Object.entries(hospitallist_local).map(([key, value]) => (
-      <div>
+      <div key={key}>
         {key} :  <input placeholder={hospitallist_local[key]} onChange={()=>{handleInputChange(event,key)}}></input>
         </div>
 
