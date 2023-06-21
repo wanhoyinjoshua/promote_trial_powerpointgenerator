@@ -29,13 +29,13 @@ export default function Home() {
   useEffect(() => {
     // Update the document title using the browser API
     var hospitalobject={
-      "0":"hospital1",
-      "1":"hospital2",
-      "2":"hospital3",
-      "3":"hospital4",
-      "4":"hospital5",
-      "5":"hpspital6",
-      "6":"hospital7"
+      "1":"hospital1",
+      "2":"hospital2",
+      "3":"hospital3",
+      "4":"hospital4",
+      "5":"hospital5",
+      "6":"hpspital6",
+      "7":"hospital7"
     }
     if (localStorage.getItem('hospitals')==null){
       localStorage.setItem('hospitals', JSON.stringify(hospitalobject));
@@ -86,7 +86,7 @@ export default function Home() {
 
   const RenderList=
     Object.entries(hospitallist_local).map(([key, value]) => (
-      <Facilityrow key={key} ref={childButtonRefs[Number(key)]} facility={Number(key)} facilityname={value} timepoint={querymonth} ></Facilityrow>
+      <Facilityrow key={key} ref={childButtonRefs[Number(key)-1]} facility={Number(key)} facilityname={value} timepoint={querymonth} ></Facilityrow>
 
     ));
 

@@ -362,7 +362,8 @@ const Facilityrow = forwardRef((props:any, ref) => {
     <tbody className="divide-y divide-gray-200">
       <tr className='flex'>
         <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-        {props.facility+1}: {props.facilityname} 
+        Key in REDCAP = {props.facility}: <br></br>
+        Name: {props.facilityname} 
         </td>
         <td className="whitespace-nowrap px-4 py-2 text-gray-700">
           <button
