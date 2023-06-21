@@ -234,6 +234,7 @@ const Facilityrow = forwardRef((props:any, ref) => {
       }
       //now pass currentimeobject to the function calculatesubscroe 
       console.log(currenttimpointobject)
+      console.log("this is the currenttime[pointpbject ")
       if (currenttimpointobject==undefined){
         setStatusCode("this record at this timepoit for this facility does not exist")
         setLoading(false)
@@ -243,6 +244,21 @@ const Facilityrow = forwardRef((props:any, ref) => {
         
         var dupid=filterabloibject.map(myFunction)
         setStatusCode(`this record at this timepoit for this facility has more than 1 record, for the results to be valid, only one record per timepoint per facility can exist--Duplicate record ids= ${JSON.stringify(dupid)}`)
+        console.log("hihiduplicate")
+        setLoading(false)
+        return
+
+      }
+      var nullentries=[]
+      for (const key in currenttimpointobject) {
+        if (currenttimpointobject[key] == -1) {
+          nullentries.push(key)
+
+        }
+      }
+      console.log(nullentries)
+      if (nullentries.length>0){
+        setStatusCode(`this record at this timepoit for this facility has missing values- id from redcap:*${currenttimpointobject.record_id}*, missing fields=${JSON.stringify(nullentries)}`)
         console.log("hihiduplicate")
         setLoading(false)
         return
@@ -346,7 +362,7 @@ const Facilityrow = forwardRef((props:any, ref) => {
     <tbody className="divide-y divide-gray-200">
       <tr className='flex'>
         <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-          Hospital {props.facility} 
+        {props.facility+1}: {props.facilityname} 
         </td>
         <td className="whitespace-nowrap px-4 py-2 text-gray-700">
           <button
