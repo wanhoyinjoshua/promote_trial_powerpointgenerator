@@ -16,7 +16,8 @@ type Items = {
 export default function Home() {
   const [hospitallist_local,setHospitallist]=useState<Items>({})
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [auditnoREDCAP,setauditnoredcap]=useState([])
+  const [hospitalnameREDCAP,sethospitalnameredcap]=useState([])
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -24,9 +25,58 @@ export default function Home() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  function gethospitalname(hospitalnameblob:any){
+    var parts = hospitalnameblob.split("|");
+    //i will expect here having 7 items in the array 
+    var indexnametuple=parts.map((item:any)=>{
+      var a= item.split(",")
+      const index=a[0]
+      const name=a[1]
+
+
+
+      return [index.trim(),name.trim()]
+    })
+    return indexnametuple
+
+  }
+
+  function getauditno(auditblob:any){
+
+  }
+
+  async function getmeta(){
+    const pulldataparamdata = {
+      'token': 'D096517FD342E013171C1822C924A7D4',
+      'content': 'metadata',
+      'format': 'json',
+      'returnFormat': 'json',
+      'fields[0]': 'audit_hospital',
+      'fields[1]': 'audit_number'
+  }
+
+    const options = {
+      method: 'POST',
+      body: new URLSearchParams(pulldataparamdata)
+    };
+    const response = await fetch('https://redcap.helix.monash.edu/api/', options);
+      console.log(response)
+      const data2 = await response.json();
+      console.log(data2)
+      const hospitalname=data2[0]
+      const auditno=data2[1]
+      
+      console.log(gethospitalname(hospitalname.select_choices_or_calculations))
+      console.log(gethospitalname(auditno.select_choices_or_calculations))
+      setauditnoredcap(gethospitalname(auditno.select_choices_or_calculations))
+      sethospitalnameredcap(gethospitalname(hospitalname.select_choices_or_calculations))
+
+  }
    
 
   useEffect(() => {
+    getmeta()
+    
     // Update the document title using the browser API
     var hospitalobject={
       "1":"hospital1",
@@ -58,37 +108,27 @@ export default function Home() {
   };
    // Number of items to generate
 
-  const childButtonRefs = [useRef<any>(null),useRef<any>(null),useRef<any>(null),useRef<any>(null),useRef<any>(null),useRef<any>(null),useRef<any>(null)]
-
+  const childButtonRefs = useRef<any>([]);
+ 
+ 
   // Function to trigger the child button click
-  const handleClickall = () => {
-    console.log("hi")
-    childButtonRefs.forEach(ref => {
-      if(ref.current){
-        ref.current.clickButton();
-        
-      }
-        
+  const handleClickall =() => {
+   console.log(childButtonRefs)
+   
+   console.log(hospitalnameREDCAP)
+   for (let i = 0; i <=hospitalnameREDCAP.length-1 ; i++) {
+    childButtonRefs.current[i].clickButton()
+  }
+   
+   
       
-    });
+    
+  
   };
 
-  const handleInputChange = (e:any,key:any) => {
-    console.log(e.target.value);
-    console.log(key)
-    var newhospital=hospitallist_local
-    newhospital[key]=e.target.value
-    console.log(newhospital)
-    setHospitallist(newhospital)
-    localStorage.setItem('hospitals', JSON.stringify(newhospital));
 
-  };
-
-  const RenderList=
-    Object.entries(hospitallist_local).map(([key, value]) => (
-      <Facilityrow key={key} ref={childButtonRefs[Number(key)-1]} facility={Number(key)} facilityname={value} timepoint={querymonth} ></Facilityrow>
-
-    ));
+  
+  
 
 
   return (
@@ -121,19 +161,11 @@ this record at this timepoint for this facility has more than 1 record, for the 
        Select Timepoint
        <section className='mb-6'>
        <select  className="mb-3 mt-1.5 w-[25vw] bg-gray-200 rounded-lg border-gray-300 text-gray-700 sm:text-sm" value={querymonth} onChange={handlemonthchange}>
-        <option value="1">Audit 1</option>
-        <option value="2">Audit 2 </option>
-        <option value="3">Audit 3 </option>
-        <option value="4">Audit 4 </option>
-        <option value="5">Audit 5</option>
-        <option value="6">Audit 6 </option>
-        <option value="7">Audit 7 </option>
-        <option value="8">Audit 8 </option>
-        <option value="9">Audit 9 </option>
-        <option value="10">Audit 10</option>
-        <option value="11">Audit 11 </option>
-        <option value="12">Audit 12 </option>
-        <option value="13">Audit 13 </option>
+       {auditnoREDCAP&&auditnoREDCAP.map((option) => (
+        <option key={option[0]} value={option[0]}>
+          Audit {option[1]}
+        </option>
+      ))}
       </select> 
        <section className=''>
      
@@ -144,40 +176,33 @@ this record at this timepoint for this facility has more than 1 record, for the 
 
       </section>
       <section>
-      <button onClick={openModal} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Edit Hospital Names
-      </button>
+    
       
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Modal"
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-        <div className="bg-white p-4 rounded-lg shadow-lg absolute inset-0 flex flex-col items-center justify-center">
-  <h2 className="text-lg font-bold mb-2">Edit Hospital Names</h2>
-  {Object.entries(hospitallist_local).map(([key, value]) => (
-      <div key={key}>
-        {key} :  <input placeholder={hospitallist_local[key]} onChange={()=>{handleInputChange(event,key)}}></input>
-        </div>
-
-    ))}
-  
-  <button onClick={closeModal} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-    Close Modal
-  </button>
-</div>
-        </div>
-      </Modal>
+      
       </section>
 
        </section>
     
       
       <section className='mt-6'>
-        {RenderList}
+      <div className="max-w-full overflow-wrap-normal">
+  <table className="w-full divide-y-2 divide-gray-200 bg-white text-sm">
+   
+
+    <tbody className="divide-y divide-gray-200">
+        {hospitalnameREDCAP&& hospitalnameREDCAP.map((option:any,index) => (
+         
+             <tr className='flex '>
+     <Facilityrow auditlength={auditnoREDCAP.length} key={option[0]} ref={(ref) => childButtonRefs.current[index] = ref}
+    facility={Number(option[0])} facilityname={option[1]} timepoint={querymonth} ></Facilityrow>
+    </tr>
+   
+  ))}
+</tbody>
+  </table>
+  </div>
+  
+
 
       </section>
     

@@ -355,17 +355,13 @@ const Facilityrow = forwardRef((props:any, ref) => {
 
 
    
-    <div className="overflow-x-auto">
-  <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-   
-
-    <tbody className="divide-y divide-gray-200">
-      <tr className='flex'>
-        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+ 
+      <tr className='flex w-screen '>
+        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 w-1/5">
         Key in REDCAP = {props.facility}: <br></br>
-        Name: {props.facilityname} 
+       <span className="bg-green-200"><strong>Name: {props.facilityname}</strong> </span> 
         </td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+        <td className="whitespace-nowrap px-4 py-2 text-gray-700 w-1/5">
           <button
           ref={buttonRef}
             onClick={handleClick}
@@ -373,20 +369,18 @@ const Facilityrow = forwardRef((props:any, ref) => {
           >
             Export Data from REDCAP
           </button></td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-        {statuscode=="success"?<PowerPointSlide data={powerpointdata} queryfacility={props.facility} timepoint={props.timepoint} ></PowerPointSlide>:<div></div>}
+        <td className="whitespace-normal px-4 py-2 text-gray-700 w-1/5">
+        {statuscode=="success"?<PowerPointSlide data={powerpointdata} queryfacility={props.facility} timepoint={props.timepoint} facilityname={props.facilityname} auditlength={props.auditlength} ></PowerPointSlide>:<div></div>}
 
         </td>
-        <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-          {statuscode}
+        <td className=" break-words px-4 py-2 text-gray-700 w-1/4 max-w-1/4">
+          <span className='break-words  w-1/4'>{statuscode}</span>
         </td>
         
       </tr>
 
      
-    </tbody>
-  </table>
-</div>
+   
     
      
     

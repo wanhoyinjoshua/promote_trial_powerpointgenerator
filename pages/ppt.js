@@ -5,6 +5,7 @@ import pptxgen from "pptxgenjs";
 export default function PowerPointSlide(props) {
 	console.log
 	const [powerpointloading,setpowerload]=useState()
+	const auditlength =props.auditlength
 	
  if (props.data){
 		console.log(props.data)
@@ -17,7 +18,9 @@ export default function PowerPointSlide(props) {
 		let current=props?.data.current
 		console.log("presentationdata")
 		console.log("all data")
-		const ggg=[1,2,3,4,5,6,7,8,9,10,11,12,13]
+		
+		const ggg = Array.from({ length: auditlength }, (_, index) => index + 1);
+		//need to do soemthinge here nigga
 		var refinedalldata=[]
 		console.log(alldata)
 		for (let i = 0; i <= ggg.length-1; i++) {
@@ -92,14 +95,20 @@ export default function PowerPointSlide(props) {
 			//so now the data is literally a list 
 			console.log(alldata)
 			var dataarray=alldata.map((data)=>{ return data.total[0]/2+data.total[1]/2})
-			
+			var emptyarr=[]
+			for (let i=0;i<=dataarray.length-1;i++){
+				emptyarr.push(`Audit ${i+1}`)
+			}
+			emptyarr.unshift("")
 			dataarray.unshift(0);
-
+			emptyarr.push("")
 			// Add item to the end of the array
 			dataarray.push(0);
+			
+
 			const patient1=	{
 				name: "patient1",
-				labels: ["","Audit 1","Audit 2","Audit 3","Audit 4","Audit 5","Audit 6","Audit 7","Audit 8","Audit 9","Audit 10","Audit 11","Audit 12","Audit 13",""],
+				labels: emptyarr,
 				values: dataarray
 			}	
 			
@@ -400,7 +409,8 @@ export default function PowerPointSlide(props) {
 					{
 						name: "",
 						labels: EVSALES_LBLS,
-						values: [75, 75, 75, 75, 75, 75,75,75,75,75,75,75,75,75,75],
+						values: Array(auditlength+2).fill(75),
+						
 					},
 				],
 		
@@ -423,7 +433,7 @@ export default function PowerPointSlide(props) {
 		recommendslide9.addImage({   path: "/png/Slide14.PNG", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
 		recommendslide10.addImage({   path: "/png/Slide15.PNG", x: 0, y: 0, w: "100%", h: "100%" , objectName: "animated gif" });
 		
-		pres.writeFile({ fileName: `facility_${props.queryfacility}_time_${props.timepoint}` });
+		pres.writeFile({ fileName: `facility_${props.facilityname}_audit_${props.timepoint}_${props.data.time}` });
 		 setpowerload(false)
 		};
 	  
@@ -431,7 +441,7 @@ export default function PowerPointSlide(props) {
 	return (
 		<div>
 			{powerpointloading?<div>powerpointloading</div>:null}
-			{alldata?.length==0?<div>does not exist </div>: <button className="inline-block rounded bg-orange-600 px-4 py-2 text-xs font-medium text-white hover:bg-orange-700" onClick={handleDownload}>Generate powerpoint for facility {props.facility} at timepoint {props.timepoint}</button>}
+			{alldata?.length==0?<div>does not exist </div>: <button className="inline-block rounded bg-orange-600 px-4 py-2 text-xs font-medium text-white hover:bg-orange-700" onClick={handleDownload}>Generate powerpoint for {props.facilityname} at audit {props.timepoint}</button>}
 		 
 		</div>
 	  );
