@@ -192,7 +192,7 @@ this record at this timepoint for this facility has more than 1 record, for the 
     <tbody className="divide-y divide-gray-200">
         {hospitalnameREDCAP&& hospitalnameREDCAP.map((option:any,index) => (
          
-             <tr className='flex '>
+             <tr className='flex ' key={option[0]}>
      <Facilityrow auditlength={auditnoREDCAP.length} key={option[0]} ref={(ref) => childButtonRefs.current[index] = ref}
     facility={Number(option[0])} facilityname={option[1]} timepoint={querymonth} ></Facilityrow>
     </tr>
