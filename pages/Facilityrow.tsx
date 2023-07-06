@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { DataFrame } from 'danfojs';
 import styles from '../styles/Home.module.css';
 import PowerPointSlide from './ppt';
-import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef, useImperativeHandle, forwardRef, useEffect } from 'react';
 import { useState } from 'react';
 const Facilityrow = forwardRef((props:any, ref) => {
   const [statuscode,setStatusCode]=useState("")
@@ -18,6 +18,48 @@ const Facilityrow = forwardRef((props:any, ref) => {
       }
     }
   }));
+
+  useEffect(() => {
+    console.log(props.xmldata)
+    
+  },[]);
+
+  async function getfacilitydata(xmldata:any,hospitalno:string){
+    const xpathExpression = `//SubjectData[FormData/ItemGroupData/ItemData[@ItemOID="audit_hospital" and @Value="1"]]`;
+    var htmlcollection=xmldata.getElementsByTagName("FormData")
+    const selector = `ItemData[ItemOID=audit_hospital]`;
+    var hospitaldata=[]
+    
+
+    for (const element of htmlcollection) {
+      const datafields=element.getElementsByTagName("ItemData")
+      
+      for (let i=0;i<datafields.length;i++){
+        
+        if(datafields[i].getAttribute("ItemOID")=="audit_hospital"){
+          console.log(datafields[i])
+          if (datafields[i].getAttribute("Value")==hospitalno){
+            
+            var obj:any={}
+            for(const entry of datafields){
+              obj[`${entry.getAttribute("ItemOID")}`]=entry.getAttribute("Value")
+              
+              
+
+            }
+            hospitaldata.push(obj)
+  
+          }
+        }
+  
+      }
+    }
+
+    
+    return hospitaldata
+   
+
+  }
    
   async function handleClick() {
     
@@ -27,144 +69,26 @@ const Facilityrow = forwardRef((props:any, ref) => {
     setLoading(true)
     
     
+    var data2=await getfacilitydata(props.xmldata,props.facility)
+    
+
+    if (data2[0]==null){
+      setStatusCode("there is nothing from the database")
+      setLoading(false)
+      return
+
+    }
+    else{
+      setStatusCode("success from redcap")
+
+    }
+    //now I have the form data for each facility. including all timepoints 
+    // now i need to transform it into a list of obejcts
+
     
     
 
-    const pulldataparamdata = {
-      'token': 'D096517FD342E013171C1822C924A7D4',
-      'content': 'record',
-      'action': 'export',
-      'format': 'json',
-      'type': 'flat',
-      'csvDelimiter': '',
-      'fields[0]': 'record_id',
-      'fields[1]': 'audit_hospital',
-      'fields[2]': 'audit_number',
-      'fields[3]': 'audit_date',
-      'fields[4]': 'demographics',
-      'fields[5]': 'date_of_stroke',
-      'fields[6]': 'date_admission_rehab',
-      'fields[7]': 'reach_score',
-      'fields[8]': 'reach_score_2',
-      'fields[9]': 'reach_score_3',
-      'fields[10]': 'safe_shoulder',
-      'fields[11]': 'safe_finger',
-      'fields[12]': 'safe_score_total',
-      'fields[13]': 'ul_measure',
-      'fields[14]': 'ul_measure_na',
-      'fields[15]': 'name_outcome_measures',
-      'fields[16]': 'gs_ul',
-      'fields[17]': 'gs_ul_explanation',
-      'fields[18]': 'gs_ul_family',
-      'fields[19]': 'gs_ul_reviewed_explained_2',
-      'fields[20]': 'gs_ul_reviewed',
-      'fields[21]': 'gs_ul_reviewed_explained',
-      'fields[22]': 'ed_ul_prompts',
-      'fields[23]': 'ed_ul_na',
-      'fields[24]': 'ed_ul_self_practise',
-      'fields[25]': 'ul_educational_prompts_2',
-      'fields[26]': 'therapy_14_days',
-      'fields[27]': 'therapy_14_days_na',
-      'fields[28]': 'therapy_mental',
-      'fields[29]': 'mental_practise_na',
-      'fields[30]': 'therapy_es',
-      'fields[31]': 'therapy_es_na',
-      'fields[32]': 'therapy_mt',
-      'fields[33]': 'therapy_mt_na',
-      'fields[34]': 'therapy_bt',
-      'fields[35]': 'therapy_bt_na',
-      'fields[36]': 'therapy_cimt',
-      'fields[37]': 'explain_cimt_na',
-      'fields[38]': 'therapy_al_rtst',
-      'fields[39]': 'explain_cimt_na_2',
-      'fields[40]': 'therapy_al_strength',
-      'fields[41]': 'explain_cimt_na_3',
-      'fields[42]': 'therapy_il_splints',
-      'fields[43]': 'therapy_il_weakness',
-      'fields[44]': 'therapy_il_weakness_2',
-      'fields[45]': 'therapy_al_grasp',
-      'fields[46]': 'self_practise_na',
-      'fields[47]': 'amount_ul_therapy',
-      'fields[48]': 'amount_ul_therapy_na',
-      'fields[49]': 'amount_ul_therapy_2',
-      'fields[50]': 'amount_ul_therapy_na_2',
-      'fields[51]': 'demographics2',
-      'fields[52]': 'date_of_stroke2',
-      'fields[53]': 'date_admission_rehab2',
-      'fields[54]': 'reach_score2',
-      'fields[55]': 'reach_score2_2',
-      'fields[56]': 'reach_score2_3',
-      'fields[57]': 'safe_shoulder2',
-      'fields[58]': 'safe_finger2',
-      'fields[59]': 'safe_score_total2',
-      'fields[60]': 'ul_measure2',
-      'fields[61]': 'ul_measure_na2',
-      'fields[62]': 'name_outcome_measures2',
-      'fields[63]': 'gs_ul2',
-      'fields[64]': 'gs_ul2_explanation',
-      'fields[65]': 'gs_ul2_family',
-      'fields[66]': 'gs_ul2_reviewed_explained_2',
-      'fields[67]': 'gs_ul2_reviewed',
-      'fields[68]': 'gs_ul2_reviewed_explained',
-      'fields[69]': 'ed_ul2_prompts',
-      'fields[70]': 'ed_ul2_na',
-      'fields[71]': 'ed_ul2_self_practise',
-      'fields[72]': 'ul2_educational_prompts_2',
-      'fields[73]': 'therapy2_14_days',
-      'fields[74]': 'therapy2_14_days_na',
-      'fields[75]': 'therapy_mental2',
-      'fields[76]': 'mental_practise2_na',
-      'fields[77]': 'therapy2_es',
-      'fields[78]': 'therapy2_es_na',
-      'fields[79]': 'therapy2_mt',
-      'fields[80]': 'therapy2_mt_na',
-      'fields[81]': 'therapy2_bt',
-      'fields[82]': 'therapy2_bt_na',
-      'fields[83]': 'therapy2_cimt',
-      'fields[84]': 'explain2_cimt_na',
-      'fields[85]': 'therapy2_al_rtst',
-      'fields[86]': 'explain2_cimt_na_2',
-      'fields[87]': 'therapy2_al_strength',
-      'fields[88]': 'explain2_cimt_na_3',
-      'fields[89]': 'therapy2_il_splints',
-      'fields[90]': 'therapy2_il_weakness',
-      'fields[91]': 'therapy2_il_weakness_2',
-      'fields[92]': 'therapy2_al_grasp',
-      'fields[93]': 'self2_practise_na',
-      'fields[94]': 'amount2_ul_therapy',
-      'fields[95]': 'amount2_ul_therapy_na',
-      'fields[96]': 'amount2_ul_therapy_2',
-      'fields[97]': 'amount2_ul_therapy_na_2',
-      'fields[98]': 'discussion_ideas',
-      'fields[99]': 'fortnightly_clinical_audit_complete',
-      'rawOrLabel': 'raw',
-      'rawOrLabelHeaders': 'raw',
-      'exportCheckboxLabel': 'false',
-      'exportSurveyFields': 'false',
-      'exportDataAccessGroups': 'false',
-      'returnFormat': 'json',
-      'filterLogic': `[audit_hospital] =${props.facility}`
-  }
-
-    const options = {
-      method: 'POST',
-      body: new URLSearchParams(pulldataparamdata)
-    };
-  
-      const response = await fetch('https://redcap.helix.monash.edu/api/', options);
-      
-      const data2 = await response.json();
-      const statuscode= response.status
-      if (data2[0]==null){
-        setStatusCode("there is nothing from the database")
-        setLoading(false)
-        return
-
-      }
-      else{
-        setStatusCode("success from redcap")
-
-      }
+   
       function calculate_subscore_and_total(timepointobject:any){
         //this function assumes facility is already filtered 
         // and it assumes it is an object 
@@ -319,6 +243,10 @@ const Facilityrow = forwardRef((props:any, ref) => {
    
 
   }
+
+
+
+
   const [slideData, setSlideData] = useState({});
    const COLOR_RED = "FF0000";
    const COLOR_YLW = "F2AF00";
@@ -351,6 +279,7 @@ const Facilityrow = forwardRef((props:any, ref) => {
   return (
     <>
     {loading?<div>loading</div>:<div></div>}
+    
     
 
 

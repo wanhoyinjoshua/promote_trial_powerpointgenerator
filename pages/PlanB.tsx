@@ -13,11 +13,12 @@ import Modal from 'react-modal';
 type Items = {
   [key: string]: string;
 };
-export default function Home() {
+export default function PlanB() {
   const [hospitallist_local,setHospitallist]=useState<Items>({})
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [auditnoREDCAP,setauditnoredcap]=useState([])
   const [hospitalnameREDCAP,sethospitalnameredcap]=useState([])
+  const [xmldatabase,setxmldata]=useState<any>()
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -72,6 +73,7 @@ export default function Home() {
       
       console.log(gethospitalname(hospitalname.select_choices_or_calculations))
       console.log(gethospitalname(auditno.select_choices_or_calculations))
+      
       setauditnoredcap(gethospitalname(auditno.select_choices_or_calculations))
       sethospitalnameredcap(gethospitalname(hospitalname.select_choices_or_calculations))
 
@@ -79,27 +81,10 @@ export default function Home() {
    
 
   useEffect(() => {
-    getmeta()
+    
     
     // Update the document title using the browser API
-    var hospitalobject={
-      "1":"hospital1",
-      "2":"hospital2",
-      "3":"hospital3",
-      "4":"hospital4",
-      "5":"hospital5",
-      "6":"hpspital6",
-      "7":"hospital7"
-    }
-    if (localStorage.getItem('hospitals')==null){
-      localStorage.setItem('hospitals', JSON.stringify(hospitalobject));
-
-    }
-    
-    var hospitallist=localStorage.getItem('hospitals')
-    
-    {hospitallist&&setHospitallist(JSON.parse(hospitallist))}
-    
+   
   },[]);
 
  
@@ -129,6 +114,63 @@ export default function Home() {
     
   
   };
+
+  const handleFileChange = (event:any) => {
+    const selectedFile = event.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        if(event.target){
+            const fileContent = event.target.result;
+      parseXml(fileContent);
+
+        }
+      
+    };
+
+    reader.readAsText(selectedFile);
+  };
+
+  const parseXml = (xmlContent:any) => {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+    setxmldata(xmlDoc)
+    setauditnoredcap(gethospitalmetafromxml(xmlDoc,"audit_number.choices"))
+    sethospitalnameredcap(gethospitalmetafromxml(xmlDoc,"audit_hospital.choices"))
+    console.log(xmlDoc); // Display the parsed XML document in the console
+  };
+  function getTagByIdWithXPath(xmlDoc:any, id:any) {
+    
+    
+    const xpathExpression = `//*[@OID="${id}"]`;
+    const xpathResult = xmlDoc.evaluate(xpathExpression, xmlDoc, null, XPathResult.ANY_TYPE, null);
+    
+    const element = xpathResult.iterateNext();
+    return element;
+  }
+  
+  function gethospitalmetafromxml(xmlstring:any,id:any):any{
+    const hospitals= getTagByIdWithXPath(xmlstring,id)
+    console.log(hospitals)
+    //i need a list of [index,name]
+    var hospitallist=hospitals.getElementsByTagName("CodeListItem")
+    var codedlist=[]
+    console.log(hospitallist)
+    for (let i = 0; i < hospitallist.length; i++) {
+        const element = hospitallist[i];
+        // Perform operations on each element
+        const value=element.querySelectorAll("TranslatedText")[0].innerHTML
+        const index=element.getAttribute("CodedValue")
+        codedlist.push([index,value])
+      }
+    
+   
+    
+
+    return codedlist
+
+  }
+
 
 
   
@@ -162,6 +204,9 @@ this record at this timepoint for this facility has more than 1 record, for the 
       </p>
     </div>
     <br></br>
+    <section>
+    <input type="file" accept="application/xml, text/xml" onChange={handleFileChange} />
+        </section>
        Select Timepoint
        <section className='mb-6'>
        <select  className="mb-3 mt-1.5 w-[25vw] bg-gray-200 rounded-lg border-gray-300 text-gray-700 sm:text-sm" value={querymonth} onChange={handlemonthchange}>
@@ -197,7 +242,7 @@ this record at this timepoint for this facility has more than 1 record, for the 
         {hospitalnameREDCAP&& hospitalnameREDCAP.map((option:any,index) => (
          
              <tr className='flex ' key={option[0]}>
-     <Facilityrow auditlength={auditnoREDCAP.length} key={option[0]} ref={(ref) => childButtonRefs.current[index] = ref}
+     <Facilityrow xmldata={xmldatabase} auditlength={auditnoREDCAP.length} key={option[0]} ref={(ref) => childButtonRefs.current[index] = ref}
     facility={Number(option[0])} facilityname={option[1]} timepoint={querymonth} ></Facilityrow>
     </tr>
    
@@ -218,9 +263,4 @@ this record at this timepoint for this facility has more than 1 record, for the 
 }
 
 
-async function Talks() {
-  await kv.set('key', 'value');
-let data:any = await kv.get('key');
-console.log(data)
-  return <div>{JSON.stringify(data)}</div>;
-}
+
