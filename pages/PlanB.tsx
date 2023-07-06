@@ -191,6 +191,16 @@ export default function PlanB() {
         Alternatively you can do it one by one.
         <br>
         </br>
+        <section className='font-bold text-red-500 underline'>
+        This is a back up plan anticpating monash denied my application for diect access to redcap.
+        This solution requires one extra step<br>
+        </br>
+        You will have to manually load in a data file from redcap, to download the data file go to your redcap page ( make sure it is the correct project), Applciations--Data Export -- Other Export Options --Export entire project as REDCap XML file (containing metadata & data)
+        You can use this version for testing/ production if the token was eventually rejected.
+        </section>
+
+        <br>
+        </br>
         Error messages:<br>
         </br>
   <strong>there is nothing from the database</strong>- meaning there is no record for all timepoints .<br></br>
